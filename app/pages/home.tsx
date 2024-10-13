@@ -1,20 +1,20 @@
-'use client'
+// Home.tsx
+"use client";
 
-import Navbar from '../components/navbar';
-import translations from '../public/locals/translations'
-import LanguageTranslations from '../public/locals/translations_type'
-
-import {
-    useState,
-    useEffect
-} from 'react';
+import Navbar from "../components/navbar";
+import Form from "../components/Form"; // Adjust path as necessary
+import Footer from "../components/Footer"; // Adjust path as necessary
+import { LanguageProvider } from '../context/LanguageContext'; // Adjust path as necessary
 
 export default function Home() {
-  const [lng, setlng] = useState<LanguageTranslations>(translations['English'])
-
   return (
-    <div>
-        <Navbar translations={translations} lng={lng} setlng={setlng} />
-    </div>
-  )
+    <LanguageProvider>
+      <div className="bg-gray-100">
+        <Navbar />
+        <Form />
+        <Footer />
+      </div>
+      
+    </LanguageProvider>
+  );
 }

@@ -1,5 +1,5 @@
 // translations.tsx
-import { LanguageTranslations } from './translations_type';
+import { LanguageTranslations } from './translation_type';
 
 const translations: LanguageTranslations = {
   English: {
