@@ -22,9 +22,16 @@ export default function Footer() {
                 {/* Location */}
                 <div className="mb-6 md:mb-0 ml-4">
                     <h2 className="text-lg font-bold mb-2">Location</h2>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.8917676127217!2d73.8424892!3d18.5337925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1d6414a11e7%3A0x3eb84aa637f95df6!2s1%20Modibaug%20Apartment%20Complex!5e0!3m2!1sen!2sin!4v1728900125853!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.8917676127217!2d73.8424892!3d18.5337925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1d6414a11e7%3A0x3eb84aa637f95df6!2s1%20Modibaug%20Apartment%20Complex!5e0!3m2!1sen!2sin!4v1728900125853!5m2!1sen!2sin"
+                      width="300"
+                      height="200"
+                      style={{ border: 'none' }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                    ></iframe>
                 </div>
-
                 {/* QR Code Section */}
                 <div className="flex flex-col items-start ml-4">
                     <h2 className="text-lg font-bold mb-2">Scan QR Code</h2>
