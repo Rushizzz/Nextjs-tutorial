@@ -1,8 +1,5 @@
-// Form.tsx
-"use client";
-
-import { useState } from 'react';
-import districtsData from '../data/districtsData.json'; // Assuming you save the JSON data in a file
+import { useState, useRef } from 'react';
+import districtsData from '../data/districtsData.json';
 import translations from '../public/translations';
 import { useLanguage } from '../context/LanguageContext';
 import ProfilePictureUploader from './profile-picture-uploader';
@@ -17,9 +14,7 @@ const branches = [
   "Information Technology",
 ];
 
-
 export default function Form() {
-  
   const { language } = useLanguage();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,8 +30,27 @@ export default function Form() {
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
   const [platformId, setPlatformId] = useState('');
 
+  // Add a ref for the ProfilePictureUploader component
+  const profilePictureUploaderRef = useRef<{ resetImage: () => void } | null>(null);
+
   const handleProfilePictureUpload = (base64Image: string) => {
     setProfilePicture(base64Image);
+  };
+
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setPhone('');
+    setAddress('');
+    setDistrict('');
+    setTaluka('');
+    setBranch('');
+    setMessage('');
+    setProfilePicture(null);
+    // Reset the profile picture uploader
+    if (profilePictureUploaderRef.current) {
+      profilePictureUploaderRef.current.resetImage();
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -80,15 +94,7 @@ export default function Form() {
         setPlatformId(result.platformId);
         setIsSuccessDialogOpen(true);
         // Reset form fields
-        setName('');
-        setEmail('');
-        setPhone('');
-        setAddress('');
-        setMessage('');
-        setDistrict('');
-        setTaluka('');
-        setBranch('');
-        setProfilePicture(null);
+        resetForm();
       } else {
         throw new Error('Registration successful, but no Platform ID was returned.');
       }
@@ -99,11 +105,15 @@ export default function Form() {
       setLoading(false);
     }
   };
+
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg m-8">
       <h2 className="text-2xl font-bold text-center">{translations[language].title}</h2>
       <div className="p-8">
-        <ProfilePictureUploader onImageUpload={handleProfilePictureUpload} />
+        <ProfilePictureUploader 
+            onImageUpload={handleProfilePictureUpload} 
+            ref={profilePictureUploaderRef}
+          />
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

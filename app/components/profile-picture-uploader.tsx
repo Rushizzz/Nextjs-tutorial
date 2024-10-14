@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import Image from 'next/image';
 import translations from '../public/translations';
 import { useLanguage } from '../context/LanguageContext';
@@ -7,12 +7,26 @@ interface ProfilePictureUploaderProps {
   onImageUpload: (base64Image: string) => void;
 }
 
-const ProfilePictureUploader: React.FC<ProfilePictureUploaderProps> = ({ onImageUpload }) => {
+export interface ProfilePictureUploaderRef {
+  resetImage: () => void;
+}
+
+const ProfilePictureUploader = forwardRef<ProfilePictureUploaderRef, ProfilePictureUploaderProps>(({ onImageUpload }, ref) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isCompressing, setIsCompressing] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { language } = useLanguage();
+
+  useImperativeHandle(ref, () => ({
+    resetImage: () => {
+      setPreviewUrl(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      onImageUpload(''); // Clear the image in the parent component
+    }
+  }));
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -70,6 +84,8 @@ const ProfilePictureUploader: React.FC<ProfilePictureUploaderProps> = ({ onImage
       {isCompressing && <p className="text-sm text-gray-500">Processing image...</p>}
     </div>
   );
-};
+});
+
+ProfilePictureUploader.displayName = 'ProfilePictureUploader';
 
 export default ProfilePictureUploader;
