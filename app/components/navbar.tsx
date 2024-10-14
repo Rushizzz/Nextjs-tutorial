@@ -19,7 +19,7 @@ export default function Navbar() {
               <div className="flex gap-8 items-center">
                 <ENCL/>
                 {/* <ENCL_text/> */}
-                <span className='text-white text-2xl font-extrabold italic uppercase'>
+                <span className='text-white text-2xl font-extrabold'>
                   {translations[language].navbarTitle}
                 </span>
               </div>
@@ -28,7 +28,7 @@ export default function Navbar() {
             </div>
           </div>
           <div className="hidden md:block">
-            <div className="ml-4 flex items-center md:ml-6">
+            <div className="ml-4 flex items-center justify-end md:ml-6">
               <Dropdown />
             </div>
           </div>
@@ -50,15 +50,8 @@ export default function Navbar() {
 
       {isMenuOpen && (
         <div className="md:hidden">
-          <div className="pt-4 pb-3 border-t border-gray-500">
-            <div className="flex items-center px-5">
-              <div className="ml-3">
-                <div className="text-base font-medium leading-none text-white">
-                  {translations[language].selectLanguage}
-                </div>
-              </div>
-            </div>
-            <div className="mt-3 px-2 space-y-1">
+          <div className="pt-4 pb-3 border-t border-gray-500 flex justify-end">
+            <div className=" px-5">
               <Dropdown />
             </div>
           </div>
